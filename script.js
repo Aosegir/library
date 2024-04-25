@@ -7,6 +7,15 @@ const myLibrary = [];
 const libraryDisplay = document.getElementById('library-display');
 // the button with the event listener to create a new Book object
 const newBook = document.getElementById('new-book');
+// the form newBook will display to add a new book with
+const newBookDiv = document.getElementById('new-book-div');
+// the submit button on the form
+const submitForm = document.getElementById('submit-form');
+// the following are the form inputs that must be checked upon submitting form
+const bookTitle = document.getElementById('title');
+const bookAuthor = document.getElementById('author');
+const bookPages = document.getElementById('pages');
+const radioYes = document.getElementById('yes');
 
 /* Object Constructor for book
     title = string;
@@ -23,7 +32,10 @@ function Book(title, author, pages, read) {
 
 // Function will append a new book object to myLibrary array when called
 function addBookToLibrary(title, author, pages, read) {
+    // book pushed to array with relevant data
     myLibrary.push(new Book(title, author, pages, read));
+    // once new book is added, display is updated
+    displayLibrary();
 }
 
 // Function that will display contents of library in libraryDisplay div when called
@@ -57,16 +69,18 @@ function displayLibrary() {
 
 // event listener will add book to myLibrary array
 newBook.addEventListener('click', () => {
-    // following four prompts will allow the user to fill out book data
-    let title = prompt("What is the title of the book?");
-    let author = prompt(`What is the name of the author of ${title}?`);
-    let pages = prompt(`How many pages is ${title}?`);
-    let read = prompt(`Please answer the following statement with either 'true' or 'false': 'I have read ${title}'.`);
-    // function called adds book to library array
-    addBookToLibrary(title, author, pages, read);
-    // library display is updated with new book
-    displayLibrary();
+    newBookDiv.classList.toggle('visible');
+    newBookDiv.classList.toggle('invisible');
 });
+
+// event listener for submitForm button to prevent form from resetting page or acting
+submitForm.addEventListener('click', submitFormClick);
+
+
+function submitFormClick(event) {
+    addBookToLibrary(bookTitle.value, bookAuthor.value, bookPages.value, radioYes.checked);
+    event.preventDefault();
+}
 
 // dummy books added to fill library
 addBookToLibrary('The Hobbit', 'JRR Tolkien', '295', false);

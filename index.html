@@ -13,6 +13,33 @@
     <main>
         <div id="library-display"></div>
         <button id="new-book">NEW BOOK</button>
+        <div id="new-book-div" class="invisible">
+            <h4>Book Form</h4>
+            <div id="new-book-form">
+                <form>
+                    <div>
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title">
+                    </div>
+                    <div>
+                        <label for="author">Author</label>
+                        <input type="text" id="author" name="author">
+                    </div>
+                    <div>
+                        <label for="pages">Number of Pages</label>
+                        <input type="number" id="pages" name="pages">
+                    </div>
+                    <div>
+                        <p>Have you read the book?</p>
+                        <input type="radio" id="yes" name="read" value="true">
+                        <label for="yes">Yes</label>
+                        <input type="radio" id="no" name="read" value="false">
+                        <label for="no">No</label>
+                    </div>
+                    <button type="submit" id="submit-form">Submit</button>
+                </form>
+            </div>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
