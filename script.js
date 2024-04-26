@@ -57,35 +57,38 @@ function displayLibrary() {
     
     // loop through each Book object in myLibary array
     myLibrary.forEach((book) => {
-        // dummy div is created - will need to implement id for removal later
+        // div that holds book data: init, add class for CSS
         const newDiv = document.createElement("div");
-        // class added for visibilty via CSS
         newDiv.classList.add('book-display');
+
         // will loop through each property in the book
         for(property in book) {
-            // paragraph element to display property data
+            // p element with data: init, set html, append
             const newText = document.createElement("p");
-            // setting paragraph element to display the current key value pair of property
             newText.innerHTML = `${property}: ${book[property]}`;
-            // append text paragraph to dummy div
             newDiv.appendChild(newText);
         };
-        // create button to remove book
+        // button that removes book: init, set attribute, html, function, append
         const removeBook = document.createElement('button');
-        // establish index of book for removal when clicked
         removeBook.setAttribute('index', index);
-        // set HTML so user knows what button does
         removeBook.innerHTML = 'Remove Book';
-        // event listener is added to button while in displayLibrary function
         removeBookFunction(removeBook);
-        // append button to div
         newDiv.appendChild(removeBook);
+
+        // button that toggles read status: init, set attribute, html, function, append
+        const readButton = document.createElement('button');
+        readButton.setAttribute('index', index);
+        readButton.innerHTML = 'Toggle Read';
+        toggleReadStatus(readButton);
+        newDiv.appendChild(readButton);
+
         // increment index
         index++;
-        // append dummy div to main display for visibility
+
+        // append div to main display for visibility
         libraryDisplay.append(newDiv);
     });
-}
+};
 
 
 // event listener will add book to myLibrary array
@@ -109,7 +112,7 @@ function submitFormClick(event) {
     radioNo.checked = false;
     // event.preventDefault() stops page from reloading
     event.preventDefault();
-}
+};
 
 // function will add event listener to remove book and is called every time library is displayed
 function removeBookFunction(button) {
@@ -120,4 +123,18 @@ function removeBookFunction(button) {
         // redisplay library with updated array
         displayLibrary();
     });
-}
+};
+
+// function will toggle read status of book
+function toggleReadStatus(button) {
+    button.addEventListener('click', () => {
+        // if book's read status = true, set to false - else, set to true
+        if(myLibrary[button.getAttribute('index')].read) {
+            myLibrary[button.getAttribute('index')].read = false;
+        } else {
+            myLibrary[button.getAttribute('index')].read = true;
+        }
+        // redisplay library with updated data
+        displayLibrary();
+    });
+};
