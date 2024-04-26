@@ -65,7 +65,7 @@ function displayLibrary() {
         for(property in book) {
             // p element with data: init, set html, append
             const newText = document.createElement("p");
-            newText.innerHTML = `${property}: ${book[property]}`;
+            newText.innerHTML = `<span class='capitalize'>${property}:</span> ${book[property]}`;
             newDiv.appendChild(newText);
         };
         // button that removes book: init, set attribute, html, function, append
@@ -92,10 +92,12 @@ function displayLibrary() {
 
 
 // event listener will add book to myLibrary array
-newBook.addEventListener('click', () => {
+newBook.addEventListener('click', () => toggleVisibility());
+
+function toggleVisibility() {
     newBookDiv.classList.toggle('visible');
     newBookDiv.classList.toggle('invisible');
-});
+}
 
 // event listener for submitForm button to prevent form from resetting page or acting
 submitForm.addEventListener('click', submitFormClick);
@@ -110,6 +112,8 @@ function submitFormClick(event) {
     bookPages.value = '';
     radioYes.checked = false;
     radioNo.checked = false;
+    // call toggle visibility function to make form invisible again
+    toggleVisibility();
     // event.preventDefault() stops page from reloading
     event.preventDefault();
 };
@@ -117,7 +121,6 @@ function submitFormClick(event) {
 // function will add event listener to remove book and is called every time library is displayed
 function removeBookFunction(button) {
     button.addEventListener('click', () => {
-        console.log(libraryDisplay);
         // removes book from myLibrary array at correct index
         myLibrary.splice(button.getAttribute('index'), 1);
         // redisplay library with updated array

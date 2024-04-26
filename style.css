@@ -1,6 +1,42 @@
+/* -- GENERAL -- */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 4rem;
+    background-color: #5356FF;
+    color: white;
+}
+
+#library-display {
+    display: grid;
+    width: 100%;
+    height: 75vh;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .book-display {
-    border: 1px solid maroon;
-    background-color: peachpuff;
+    border: 5px solid #378CE7;
+    background-color: #DFF5FF;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-display p {
+    text-align: center;
+}
+
+.capitalize {
+    text-transform: capitalize;
 }
 
 .invisible {
@@ -11,9 +47,16 @@
     opacity: 100;
 }
 
-#new-book-div {
-    height: 75vh;
-    width: 75vw;
-    border: 3px solid black;
-    background-color: #ffffff;
+#new-book-form {
+    height: 33vh;
+    width: 33vw;
+    border: 5px solid #67C6E3;
+    background-color: #DFF5FF;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 300px;
+    left: 33vw;
 }
