@@ -16,6 +16,7 @@ const bookTitle = document.getElementById('title');
 const bookAuthor = document.getElementById('author');
 const bookPages = document.getElementById('pages');
 const radioYes = document.getElementById('yes');
+const radioNo = document.getElementById('no');
 
 /* Object Constructor for book
     title = string;
@@ -38,6 +39,11 @@ function addBookToLibrary(title, author, pages, read) {
     displayLibrary();
 }
 
+// dummy books added to fill library
+addBookToLibrary('The Hobbit', 'JRR Tolkien', '295', false);
+addBookToLibrary('Cat In The Hat', 'Dr Seuss', '50', true);
+addBookToLibrary('To Flail Against Infinity', 'J. P. Valentine', '487', true);
+
 // Function that will display contents of library in libraryDisplay div when called
 function displayLibrary() {
 
@@ -46,6 +52,9 @@ function displayLibrary() {
         libraryDisplay.removeChild(libraryDisplay.lastChild);
     }
 
+    // variable will serve as the current index of the myLibrary array
+    let index = 0;
+    
     // loop through each Book object in myLibary array
     myLibrary.forEach((book) => {
         // dummy div is created - will need to implement id for removal later
@@ -61,6 +70,18 @@ function displayLibrary() {
             // append text paragraph to dummy div
             newDiv.appendChild(newText);
         };
+        // create button to remove book
+        const removeBook = document.createElement('button');
+        // establish index of book for removal when clicked
+        removeBook.setAttribute('index', index);
+        // set HTML so user knows what button does
+        removeBook.innerHTML = 'Remove Book';
+        // event listener is added to button while in displayLibrary function
+        removeBookFunction(removeBook);
+        // append button to div
+        newDiv.appendChild(removeBook);
+        // increment index
+        index++;
         // append dummy div to main display for visibility
         libraryDisplay.append(newDiv);
     });
@@ -76,16 +97,27 @@ newBook.addEventListener('click', () => {
 // event listener for submitForm button to prevent form from resetting page or acting
 submitForm.addEventListener('click', submitFormClick);
 
-
+// function is added separately from event listener to provide event.preventDefault
 function submitFormClick(event) {
+    // adding book to library using available data, only need to check one radio
     addBookToLibrary(bookTitle.value, bookAuthor.value, bookPages.value, radioYes.checked);
+    // resetting values without using form.reset(), which would reload the page
+    bookTitle.value = '';
+    bookAuthor.value = '';
+    bookPages.value = '';
+    radioYes.checked = false;
+    radioNo.checked = false;
+    // event.preventDefault() stops page from reloading
     event.preventDefault();
 }
 
-// dummy books added to fill library
-addBookToLibrary('The Hobbit', 'JRR Tolkien', '295', false);
-addBookToLibrary('Cat In The Hat', 'Dr Seuss', '50', true);
-addBookToLibrary('To Flail Against Infinity', 'J. P. Valentine', '487', true);
-
-// initial call to display dummy books
-displayLibrary();
+// function will add event listener to remove book and is called every time library is displayed
+function removeBookFunction(button) {
+    button.addEventListener('click', () => {
+        console.log(libraryDisplay);
+        // removes book from myLibrary array at correct index
+        myLibrary.splice(button.getAttribute('index'), 1);
+        // redisplay library with updated array
+        displayLibrary();
+    });
+}
